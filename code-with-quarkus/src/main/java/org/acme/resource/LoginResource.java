@@ -27,12 +27,8 @@ public class LoginResource {
             // Authenticate user - validates if user exists in DB
             User user = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
 
-            // Generate JWT token for authenticated user
-            String token = userService.generateToken(user);
-
-            // Return success response with token
+            // Return success response
             LoginResponse response = new LoginResponse(
-                    token,
                     user.getEmail(),
                     "Login successful");
 
@@ -42,7 +38,6 @@ public class LoginResource {
             // User not found or invalid credentials - must signup first
             LoginResponse errorResponse = new LoginResponse(
                     null,
-                    null,
                     "Invalid credentials. Please signup if you don't have an account.");
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity(errorResponse)
@@ -50,7 +45,6 @@ public class LoginResource {
         } catch (Exception e) {
             // Server error
             LoginResponse errorResponse = new LoginResponse(
-                    null,
                     null,
                     "An error occurred during login");
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)

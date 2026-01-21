@@ -40,7 +40,7 @@ class UserServiceTest {
         assertNotNull(response);
         assertNotNull(response.getId());
         assertEquals("testuser@example.com", response.getEmail());
-        assertEquals("User registered successfully", response.getMessage());
+        assertEquals("User registered successfully. Please verify your email.", response.getMessage());
     }
 
     @Test
@@ -76,7 +76,10 @@ class UserServiceTest {
     void testLoginSuccess() {
         // Given
         SignupRequest signupRequest = new SignupRequest("logintest@example.com", "mypassword");
-        userService.signup(signupRequest);
+        SignupResponse signupResponse = userService.signup(signupRequest);
+
+        // Verify email before login
+        userService.verifyEmail(signupResponse.getVerificationToken());
 
         // When
         User user = userService.login("logintest@example.com", "mypassword");
@@ -104,22 +107,6 @@ class UserServiceTest {
         assertThrows(IllegalArgumentException.class, () -> {
             userService.login("wrongpass@example.com", "wrongpassword");
         });
-    }
-
-    @Test
-    void testGenerateToken() {
-        // Given
-        SignupRequest signupRequest = new SignupRequest("token@example.com", "password123");
-        userService.signup(signupRequest);
-        User user = userRepository.findByEmail("token@example.com").orElseThrow();
-
-        // When
-        String token = userService.generateToken(user);
-
-        // Then
-        assertNotNull(token);
-        assertFalse(token.isEmpty());
-        assertTrue(token.split("\\.").length == 3); // JWT has 3 parts
     }
 
     @Test

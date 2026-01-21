@@ -1,7 +1,6 @@
 package org.acme.service;
 
 import io.quarkus.elytron.security.common.BcryptUtil;
-import io.smallrye.jwt.build.Jwt;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -10,13 +9,9 @@ import org.acme.dto.SignupResponse;
 import org.acme.entity.User;
 import org.acme.repository.UserRepository;
 import org.acme.client.EmailServiceClient;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 
 @ApplicationScoped
@@ -28,9 +23,6 @@ public class UserService {
     @Inject
     @RestClient
     EmailServiceClient emailServiceClient;
-
-    @ConfigProperty(name = "mp.jwt.verify.issuer", defaultValue = "https://example.com/issuer")
-    String issuer;
 
     @Transactional
     public SignupResponse signup(SignupRequest request) {
@@ -142,17 +134,6 @@ public class UserService {
         }
 
         return user;
-    }
-
-    public String generateToken(User user) {
-        Set<String> roles = new HashSet<>();
-        roles.add("user");
-
-        return Jwt.issuer(issuer)
-                .upn(user.getEmail())
-                .groups(roles)
-                .expiresIn(Duration.ofHours(24))
-                .sign();
     }
 
     public boolean verifyPassword(String plainPassword, String hashedPassword) {
