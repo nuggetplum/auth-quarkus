@@ -1,5 +1,6 @@
 package org.acme.resource;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -16,6 +17,7 @@ import org.acme.service.UserService;
 @Path("/login")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@PermitAll
 public class LoginResource {
 
     @Inject
