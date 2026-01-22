@@ -36,9 +36,46 @@ const LoginForm = () => {
         toast.success("Login successful!");
         navigate("/dashboard");
       } catch (error) {
-        toast.error(
-          error.message || "Login failed. Please check your credentials.",
-        );
+        const errorMessage =
+          error?.message || "Login failed. Please check your credentials.";
+        console.log("Login error:", errorMessage); // For debugging
+
+        // Check if the error is about email verification
+        if (
+          errorMessage.toLowerCase().includes("email not verified") ||
+          errorMessage.toLowerCase().includes("verify your email") ||
+          errorMessage.toLowerCase().includes("verify your account")
+        ) {
+          toast.warning("Please verify your email first", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        }
+        // Check if the error is about wrong credentials
+        else if (
+          errorMessage.toLowerCase().includes("invalid email or password") ||
+          errorMessage.toLowerCase().includes("invalid credentials")
+        ) {
+          toast.error("Invalid email or password. Please try again.", {
+            position: "top-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        }
+        // Generic error
+        else {
+          toast.error(errorMessage, {
+            position: "top-center",
+            autoClose: 4000,
+          });
+        }
       } finally {
         setLoading(false);
       }

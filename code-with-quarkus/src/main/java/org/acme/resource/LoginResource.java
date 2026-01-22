@@ -39,11 +39,23 @@ public class LoginResource {
             return Response.ok(response).build();
 
         } catch (IllegalArgumentException e) {
-            // User not found or invalid credentials - must signup first
+            // Check if it's an email verification error
+            if (e.getMessage() != null && e.getMessage().toLowerCase().contains("email not verified")) {
+                LoginResponse errorResponse = new LoginResponse(
+                        null,
+                        null,
+                        e.getMessage());
+                return Response.status(Response.Status.FORBIDDEN)
+                        .entity(errorResponse)
+                        .build();
+            }
+
+            // User not found or invalid credentials
             LoginResponse errorResponse = new LoginResponse(
                     null,
                     null,
-                    "Invalid credentials. Please signup if you don't have an account.");
+                    e.getMessage() != null ? e.getMessage()
+                            : "Invalid credentials. Please signup if you don't have an account.");
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity(errorResponse)
                     .build();

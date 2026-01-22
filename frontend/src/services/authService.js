@@ -26,7 +26,17 @@ export const authService = {
       }
       return response.data;
     } catch (error) {
-      throw error.response?.data || { message: 'Login failed' };
+      // Debug logging
+      console.log('Full error object:', error);
+      console.log('Error response:', error.response);
+      console.log('Error response data:', error.response?.data);
+      
+      // Extract error message from backend response
+      const errorMessage = error.response?.data?.message || 'Login failed';
+      console.log('Extracted error message:', errorMessage);
+      
+      const err = new Error(errorMessage);
+      throw err;
     }
   },
 
