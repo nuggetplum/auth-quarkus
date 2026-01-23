@@ -154,8 +154,6 @@ docker-compose up -d
 # SSH into instance
 ssh -i your-key.pem ubuntu@your-ec2-ip
 
-# Run setup script
-curl -fsSL https://raw.githubusercontent.com/rishichirchi/quarkus-backend/main/deployment/scripts/setup-ec2.sh | bash
 
 # Clone and deploy
 git clone https://https://github.com/nuggetplum/auth-quarkus.git
@@ -225,6 +223,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 </div>
+
 
 
 
