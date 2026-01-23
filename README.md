@@ -70,7 +70,7 @@ graph TB
     style Brevo fill:#ECEFF1,stroke:#455A64,stroke-width:2px
 ```
 
-**Portal URL**: [http://18.61.252.148](http://18.61.252.148)
+**Portal URL**: http://18.61.252.148:80
 
 ## 🛠️ Tech Stack
 
@@ -225,6 +225,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 </div>
+
 
 
 
