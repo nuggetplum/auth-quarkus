@@ -31,6 +31,7 @@ Key Features
 
 ## 🏗️ Architecture Overview
 
+'''mermaind
 graph TB
     User[👤 User Browser] --> Nginx[🌐 Nginx Proxy]
     
@@ -68,7 +69,7 @@ graph TB
     style EmailService fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px
     style PostgreSQL fill:#E0F2F1,stroke:#00796B,stroke-width:2px
     style Brevo fill:#ECEFF1,stroke:#455A64,stroke-width:2px
-
+    '''
 
 ## 🛠️ Tech Stack
 
@@ -223,3 +224,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 </div>
+
