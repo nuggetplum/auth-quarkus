@@ -31,36 +31,35 @@ Key Features
 
 ## 🏗️ Architecture Overview
 
-'''mermaind
+```mermaid
 graph TB
     User[👤 User Browser] --> Nginx[🌐 Nginx Proxy]
-    
+
     Nginx --> Frontend[⚛️ React Frontend]
     Nginx --> SessionAPI[📡 /api/* → Session Server]
-    
+
     Frontend --> SessionServer[🖥️ Session Server<br/>Node.js + Express]
     SessionServer --> AuthService[🔐 Auth Service<br/>Quarkus + Java]
     SessionServer --> EmailService[📧 Email Service<br/>Python + FastAPI]
-    
+
     AuthService --> PostgreSQL[(🗄️ PostgreSQL<br/>Database)]
-    
     EmailService --> Brevo[📮 Brevo API<br/>Email Delivery]
-    
+
     subgraph "🐳 Docker Containers"
         Frontend
-        SessionServer  
+        SessionServer
         AuthService
         EmailService
         PostgreSQL
         Nginx
     end
-    
+
     subgraph "☁️ AWS EC2"
         direction TB
         Docker[Docker Compose]
     end
-    
-    %% Color Styling (Cool + Neutral Theme)
+
+    %% Color Styling
     style User fill:#E3F2FD,stroke:#1E88E5,stroke-width:2px
     style Nginx fill:#E1F5FE,stroke:#0288D1,stroke-width:2px
     style Frontend fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px
@@ -69,7 +68,8 @@ graph TB
     style EmailService fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px
     style PostgreSQL fill:#E0F2F1,stroke:#00796B,stroke-width:2px
     style Brevo fill:#ECEFF1,stroke:#455A64,stroke-width:2px
-    '''
+```
+
 
 ## 🛠️ Tech Stack
 
@@ -224,4 +224,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 </div>
+
 
